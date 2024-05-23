@@ -35,7 +35,7 @@ class AppColors {
   static const darkOrange = Color(0xfff37736);
   static const lightGreen = Colors.lightGreen;
   static const lightBlue = Color(0xff63b8ff);
-  static const peach = Color(0xffFF6D6D);
+  static const cardcolor = Color(0xffe4e4e4);
   static const transparent = Colors.transparent;
   static const yellow = Colors.yellow;
   static const collectionGradient1 = Color(0xffC7DCF5);
@@ -46,5 +46,5 @@ class AppColors {
   static const collectionIcon = Color(0xff1185E0);
   static const appbarGradientD = Color(0xff1B2C08);
   static const appbarGradientL = Color(0xff599219);
-  static const textColor = Color(0xff0C3000);
+  static const textColor = Colors.black;
 }

@@ -12,7 +12,7 @@ class MyAppp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPages.splashPage,
+      initialRoute: AppPages.myCartPage,
       theme: AppTheme.lightTheme,
       getPages: AppRoutes.routes,
     );

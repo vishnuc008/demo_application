@@ -11,7 +11,9 @@ class CustomGradientButton extends StatelessWidget {
     this.buttonBColor,
     this.textColor,
     this.width,
-    this.height, this.prefix, this.suffix,
+    this.height,
+    this.prefix,
+    this.suffix,
   }) : super(key: key);
 
   final String title;
@@ -41,7 +43,6 @@ class CustomGradientButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
           ),
           padding: const EdgeInsets.all(0),
-
         ),
         child: Container(
           decoration: BoxDecoration(
@@ -56,17 +57,16 @@ class CustomGradientButton extends StatelessWidget {
               ),
             ],
           ),
-          child: ListTile(
-            leading: prefix,
-           
-            title: Text(title,style: TextStyle(
-              color: textColor ?? Colors.white,
-              fontSize: 16.0,
-              fontFamily: 'Plus Jakarta Sans',
-              fontWeight: FontWeight.w500,
-            ),),
-            trailing: suffix,
-            
+          child: Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: textColor ?? Colors.white,
+                fontSize: 16.0,
+                fontFamily: 'Plus Jakarta Sans',
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ),
       ),
