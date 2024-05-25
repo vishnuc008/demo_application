@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:demo_application/Demo_App/domain/entities/order_modal.dart';
-import 'package:demo_application/Demo_App/presentation/manager/controller/order_controller.dart';
+import 'package:demo_application/Demo_App/presentation/manager/controller/dashBoard_Controller.dart';
+
 import 'package:demo_application/Demo_App/presentation/themes/app_colors.dart';
 import 'package:demo_application/Demo_App/presentation/widgets/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class OrderWidget extends StatefulWidget {
   const OrderWidget({super.key});
@@ -14,18 +17,41 @@ class OrderWidget extends StatefulWidget {
   State<OrderWidget> createState() => _OrderWidgetState();
 }
 
+final dashboardController = Get.find<DashboardController>();
+
 class _OrderWidgetState extends State<OrderWidget> {
   @override
   Widget build(BuildContext context) {
-    final ordercontroller = Get.find<OrderController>();
-    return ListView.builder(
-      itemCount: ordercontroller.orderlist.length,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return OrderItem(modal: ordercontroller.orderlist[index]);
-      },
-    );
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
+
+    return Obx(() {
+      if (dashboardController.addToOrderLoading.value) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      } else if (dashboardController.orderList.isEmpty) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: h * 0.2,
+            ),
+            Center(child: Text("No Order Found")),
+          ],
+        );
+      } else {
+        return ListView.builder(
+          itemCount: dashboardController.orderList.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return OrderItem(modal: dashboardController.orderList[index]);
+          },
+        );
+      }
+    });
   }
 }
 
@@ -37,10 +63,11 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
+String formattedDate = formatDate(modal.orderTime);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: h * 0.2,
+        height: h * 0.23,
         width: w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -59,9 +86,16 @@ class OrderItem extends StatelessWidget {
                             topLeft: Radius.circular(10),
                             bottomLeft: Radius.circular(10)),
                         color: AppColors.cardcolor),
-                    child: Image(
-                      image: AssetImage(modal.img),
-                      height: h * 0.07,
+                    child: CachedNetworkImage(
+                      imageUrl: modal.cartModal.productResponseModal.image,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => SizedBox(
+                        height: h * 0.15,
+                        width: w * 0.005,
+                        child: const Center(child: CircularProgressIndicator()),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   ),
                 ),
@@ -72,22 +106,35 @@ class OrderItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(modal.productName,
-                        style: TextStyle(
-                            fontFamily: "Plus Jakarta Sans",
-                            fontSize: 14,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600)),
-                    Text(modal.productColor,
-                        style: TextStyle(
-                            fontFamily: "Plus Jakarta Sans",
-                            fontSize: 14,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600)),
+                    SizedBox(
+                      width: w * 0.5,
+                      child: Text(modal.cartModal.productResponseModal.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "Plus Jakarta Sans",
+                              fontSize: 14,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                    SizedBox(
+                      width: w * 0.5,
+                      child: Text(
+                          modal.cartModal.productResponseModal.description,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "Plus Jakarta Sans",
+                              fontSize: 14,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w600)),
+                    ),
                     SizedBox(height: h * 0.01),
                     Row(
                       children: [
-                        Text(modal.date,
+                        Text(formattedDate,
                             style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 10,
@@ -96,7 +143,7 @@ class OrderItem extends StatelessWidget {
                         SizedBox(
                           width: w * 0.03,
                         ),
-                        Text(modal.status,
+                        Text("Ordered",
                             style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 10,
@@ -105,7 +152,14 @@ class OrderItem extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: h * 0.01),
-                    Text(modal.amount,
+                    Text("Qty :${modal.cartModal.quantity.toString()}",
+                        style: TextStyle(
+                            fontFamily: "Plus Jakarta Sans",
+                            fontSize: 10,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w600)),
+                    SizedBox(height: h * 0.01),
+                    Text(modal.cartModal.subtotal.toString(),
                         style: TextStyle(
                             fontFamily: "Plus Jakarta Sans",
                             fontSize: 10,
@@ -171,4 +225,8 @@ class OrderItem extends StatelessWidget {
       ),
     );
   }
+}
+String formatDate(DateTime date) {
+  final DateFormat formatter = DateFormat('dd/MM/yyyy');
+  return formatter.format(date);
 }

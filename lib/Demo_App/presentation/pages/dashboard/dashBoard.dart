@@ -48,22 +48,60 @@ class _DashBoardState extends State<DashBoard> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppPages.profilePage);
+                },
                 icon: Icon(
                   Icons.person,
                   color: AppColors.black,
                 )),
             Padding(
               padding: EdgeInsets.only(right: w * 0.02),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: AppColors.black,
-                  )),
+              child: Stack(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Get.toNamed(AppPages.myCartPage);
+                      },
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: AppColors.black,
+                      )),
+                        Positioned(
+                          right: 0,
+                          child: Obx(() {
+                            if (dashboardController.cartList.isEmpty) {
+                              return SizedBox();
+                            } else {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: AppColors.red,
+                                ),
+                                constraints: BoxConstraints(
+                                  minHeight: 10,
+                                  minWidth: 10,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "${dashboardController.cartList.length} ",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 8,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            }
+                          }))
+                      
+                ],
+              ),
             ),
           ],
           bottom: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: AppColors.white,
             title: TextFormField(
               decoration: InputDecoration(

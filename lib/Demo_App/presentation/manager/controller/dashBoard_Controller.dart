@@ -1,3 +1,4 @@
+import 'package:demo_application/Demo_App/domain/entities/order_modal.dart';
 import 'package:demo_application/Demo_App/presentation/routes/app_pages.dart';
 import 'package:demo_application/Demo_App/presentation/themes/app_assets.dart';
 import 'package:demo_application/Demo_App/presentation/widgets/custom_Print.dart';
@@ -84,15 +85,87 @@ class DashboardController extends GetxController {
     );
   }
 
+  removeFromcart(ProductResponseModal modal, int quantity, subTotal) {
+    CartModal cartModal = CartModal(modal, quantity, subTotal);
+
+    int existingIndex = cartList.indexWhere((element) =>
+        element.productResponseModal == cartModal.productResponseModal);
+    if (existingIndex != -1) {
+      CartModal existingCartModal = cartList[existingIndex];
+      cartList.remove(existingCartModal);
+      if (quantity > 0) {
+        existingCartModal = CartModal(
+          modal,
+          existingCartModal.quantity - 1,
+          subTotal,
+        );
+
+        cartList.add(existingCartModal);
+      } else if (quantity == 0) {
+        cartList.remove(existingCartModal);
+      } else {
+        existingCartModal = CartModal(
+          modal,
+          existingCartModal.quantity - 1,
+          subTotal,
+        );
+
+        cartList.add(existingCartModal);
+      }
+      cartList.refresh();
+      getTotal(cartList);
+      cartList.sort(
+        (a, b) {
+          return a.productResponseModal.title
+              .compareTo(b.productResponseModal.title);
+        },
+      );
+    }
+  }
+
   var total = 0.0;
+  var totalPay = 0.0;
   final isTotalLoading = false.obs;
   getTotal(List<CartModal> list) {
     isTotalLoading.value = true;
     total = 0.0;
+    totalPay = 0.0;
     for (var i in list) {
       total = total + i.subtotal;
     }
+    totalPay = total + 200;
     isTotalLoading.value = false;
+  }
+
+  double subtotalcalculation(double subtotal, int quantitiy) {
+    return subtotal * quantitiy.toDouble();
+  }
+
+  final isRemoveCart = false.obs;
+  deletefromcart(CartModal modal) {
+    isRemoveCart.value = true;
+    cartList.remove(modal);
+    cartList.refresh();
+    getTotal(cartList);
+    isRemoveCart.value = false;
+  }
+
+  final orderList = <OrderModal>[];
+  final addToOrderLoading = false.obs;
+  addToOrder(List<CartModal> orderModalList) {
+    customPrint("addTo order started");
+    addToOrderLoading.value = true;
+    for (var i in orderModalList) {
+      customPrint("addTo order entered in for");
+      orderList.add(OrderModal(i, DateTime.now()));
+    }
+
+    cartList.clear();
+    customPrint("addTo order Success");
+    addToOrderLoading.value = false;
+    Get.bottomSheet(
+      OrderBottomSheet(),
+    );
   }
 }
 
@@ -130,7 +203,7 @@ class MyBottomSheet extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: w*0.7,
+                      width: w * 0.7,
                       child: Text(
                         title,
                         maxLines: 1,
@@ -177,7 +250,9 @@ class MyBottomSheet extends StatelessWidget {
             width: w,
             child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed(AppPages.dashboard);
+                  Get.back();
+                  
+                  Get.toNamed(AppPages.myCartPage);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -190,6 +265,137 @@ class MyBottomSheet extends StatelessWidget {
                   'view Cart',
                 )),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class OrderBottomSheet extends StatelessWidget {
+  OrderBottomSheet({super.key});
+  final dashboardController = Get.find<DashboardController>();
+  @override
+  Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
+    return Container(
+      height: h * 0.35,
+      color: AppColors.white,
+      width: w,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(""),
+              Padding(
+                padding: EdgeInsets.only(right: w * 0.02),
+                child: Container(
+                  width: w * 0.1,
+                  decoration: const BoxDecoration(
+                      color: AppColors.grey, shape: BoxShape.circle),
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: h * 0.00),
+                    child: IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(Icons.close),
+                      color: AppColors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            // height: h * 0.08,
+            width: w * 0.19,
+            child: Image(
+              image: AssetImage(AppAssets.mark),
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(
+            height: h * 0.025,
+          ),
+          Text("Your Order Was Successfully Placed",
+              style: TextStyle(
+                  fontFamily: "Plus Jakarta Sans",
+                  fontSize: 16,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w600)),
+          Text("You’ll receive an email at  elisha2018@gmail.com once ",
+              style: TextStyle(
+                  fontFamily: "Plus Jakarta Sans",
+                  fontSize: 10,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w400)),
+          Text("your order is confirmed",
+              style: TextStyle(
+                  fontFamily: "Plus Jakarta Sans",
+                  fontSize: 10,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w400)),
+          SizedBox(
+            height: h * 0.02,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      dashboardController.getproducts();
+                      Get.toNamed(AppPages.dashboard);
+                    },
+                    child: Container(
+                      height: h * 0.05,
+                      width: w * 0.09,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.black)),
+                      child: Center(
+                        child: const Text(
+                          "Continue Shopping",
+                          style: TextStyle(
+                              fontFamily: "Plus Jakarta Sans",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: w * 0.03,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: h * 0.05,
+                    width: w * 0.9,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.black),
+                        onPressed: () {
+                          Get.toNamed(AppPages.orderPage);
+                        },
+                        child: Text(
+                          "View Order",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'Plus Jakarta Sans',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )),
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

@@ -1,6 +1,5 @@
 
-import 'package:demo_application/Demo_App/presentation/manager/bindings/cart_controller_bindings.dart';
-import 'package:demo_application/Demo_App/presentation/manager/bindings/order_controller_bindings.dart';
+
 import 'package:demo_application/Demo_App/presentation/manager/bindings/profile_controller_bindings.dart';
 import 'package:demo_application/Demo_App/presentation/pages/account_details_page.dart';
 import 'package:demo_application/Demo_App/presentation/pages/cart_page.dart';
@@ -21,8 +20,8 @@ class AppRoutes{
     GetPage(name: AppPages.splashPage, page: ()=> const SplashPage()),
     GetPage(name: AppPages.loginPage, page: ()=> const LoginPage()),
     GetPage(name: AppPages.signUp, page: ()=> const SignUpPage()),
-    GetPage(name: AppPages.myCartPage, page: ()=> const MyCartPage(),binding: CartControllerBindings()),
-    GetPage(name: AppPages.orderPage, page: ()=> const OrderPage(),binding: OrderControllerBindings()),
+    GetPage(name: AppPages.myCartPage, page: ()=> const MyCartPage(),binding: DashBoardBindings()),
+    GetPage(name: AppPages.orderPage, page: ()=> const OrderPage(),binding: DashBoardBindings()),
     GetPage(name: AppPages.profilePage, page: ()=> const ProfilePage(),binding: ProfileControllerBindings()),
     GetPage(name: AppPages.accountDetailsPage, page: ()=> const AccountDetailsPage()),
     GetPage(name: AppPages.dashboard, page: ()=>  DashBoard(),binding: DashBoardBindings()),

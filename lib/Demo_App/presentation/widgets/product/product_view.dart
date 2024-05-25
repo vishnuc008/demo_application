@@ -48,7 +48,7 @@ class _ProductViewMenuState extends State<ProductViewMenu> {
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
             childAspectRatio: MediaQuery.of(context).size.width /
-                (MediaQuery.of(context).size.height / 1.2),
+                (MediaQuery.of(context).size.height / 1.1),
           ),
           itemCount: dashboarController.productList.length,
           shrinkWrap: true,
@@ -123,9 +123,8 @@ class _ProductViewItemState extends State<ProductViewItem> {
                       child: RawMaterialButton(
                         onPressed: () {
                           if (existingItem == true) {
-                             Get.bottomSheet(
-                              MyBottomSheet(
-                                  widget.productResponseModal.title),
+                            Get.bottomSheet(
+                              MyBottomSheet(widget.productResponseModal.title),
                             );
                           } else {
                             setState(() {
@@ -137,8 +136,8 @@ class _ProductViewItemState extends State<ProductViewItem> {
                           }
                         },
                         fillColor: AppColors.grey,
-                        child:  Icon(
-                             existingItem ?  Icons.check:Icons.add,
+                        child: Icon(
+                          existingItem ? Icons.check : Icons.add,
                           color: Colors.black,
                         ),
                         shape: const CircleBorder(),
@@ -206,10 +205,10 @@ class _ProductViewItemState extends State<ProductViewItem> {
                         ),
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       flex: 4,
                       child: Text(
-                        "1,29,000",
+                        widget.productResponseModal.price.toStringAsFixed(2),
                         style: TextStyle(
                             color: AppColors.black,
                             fontWeight: FontWeight.bold),

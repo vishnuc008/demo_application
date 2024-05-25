@@ -1,3 +1,4 @@
+import 'package:demo_application/Demo_App/presentation/routes/app_pages.dart';
 import 'package:demo_application/Demo_App/presentation/themes/app_colors.dart';
 import 'package:demo_application/Demo_App/presentation/widgets/oreder_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,11 +18,13 @@ class _OrderPageState extends State<OrderPage> {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
-    return SafeArea(child: Scaffold(
+    return SafeArea(
+        child: Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            dashboardController.getproducts();
+            Get.toNamed(AppPages.dashboard);
           },
           icon: const Icon(Icons.arrow_back),
           color: AppColors.black,
@@ -35,11 +38,9 @@ class _OrderPageState extends State<OrderPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.fromLTRB(w * 0.03, h * 0.02, w * 0.03, 0),
+          padding: EdgeInsets.fromLTRB(w * 0.03, h * 0.02, w * 0.03, 0),
           child: Column(
-            children: [
-            OrderWidget()
-            ],
+            children: [OrderWidget()],
           ),
         ),
       ),

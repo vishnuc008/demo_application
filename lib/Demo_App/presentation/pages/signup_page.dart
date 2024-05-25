@@ -118,7 +118,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: h * 0.1,
               ),
               Center(
-                  child: CustomGradientButton(title: "Sign Up", onPressed: () {}))
+                  child: CustomGradientButton(
+                      title: "Sign Up",
+                      onPressed: () {
+                        Get.toNamed(AppPages.loginPage);
+                      }))
             ],
           ),
         ),

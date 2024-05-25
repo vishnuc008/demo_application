@@ -87,25 +87,29 @@ class _SplashPageState extends State<SplashPage> {
               height: h * 0.068,
               width: w * 0.9,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.black
-                ),
-                onPressed: (){},
-               child: Row(
-                children: [
-                Icon(Icons.smartphone_outlined), 
-                SizedBox(width: w*0.15,),             
-                Text("Continue via Phone",style: TextStyle(
-                  fontFamily: "Plus Jakarta Sans",
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500),),
-                SizedBox(width: w*0.15,), 
-                IconButton(onPressed: (){
-                  Get.toNamed(AppPages.loginPage);
-                },
-                 icon: Icon(Icons.arrow_forward_rounded))
-                ],
-               )),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.black),
+                  onPressed: () {
+                    Get.toNamed(AppPages.signUp);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.smartphone_outlined),
+                      Text(
+                        "Continue via Phone",
+                        style: TextStyle(
+                            fontFamily: "Plus Jakarta Sans",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Get.toNamed(AppPages.loginPage);
+                          },
+                          icon: Icon(Icons.arrow_forward_rounded))
+                    ],
+                  )),
             ),
             Padding(
               padding:
@@ -184,12 +188,11 @@ class _SplashPageState extends State<SplashPage> {
                 ],
               ),
             ),
-            
             Padding(
-              padding:  EdgeInsets.only(left: w*0.02,right: w*0.02),
+              padding: EdgeInsets.only(left: w * 0.05, right: w * 0.05),
               child: RichText(
+                
                   text: const TextSpan(children: [
-                    
                 TextSpan(
                     text: "By Continuing you are Accept to our",
                     style: TextStyle(
@@ -197,28 +200,26 @@ class _SplashPageState extends State<SplashPage> {
                         color: AppColors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w400)),
-                        
-                TextSpan(text: " T&C ",style: TextStyle(
-                
+                TextSpan(
+                    text: " T&C ",
+                    style: TextStyle(
                         color: AppColors.red,
                         fontFamily: "Plus Jakarta Sans",
                         fontSize: 14,
                         fontWeight: FontWeight.w400)),
-                        TextSpan(
+                TextSpan(
                     text: "and ",
                     style: TextStyle(
                         fontFamily: "Plus Jakarta Sans",
-                       
                         fontSize: 14,
                         color: AppColors.black,
                         fontWeight: FontWeight.w400)),
-                        TextSpan(
+                TextSpan(
                     text: "Privacy policy",
                     style: TextStyle(
                         fontFamily: "Plus Jakarta Sans",
                         color: AppColors.red,
                         fontSize: 14,
-                        
                         fontWeight: FontWeight.w400)),
               ])),
             )

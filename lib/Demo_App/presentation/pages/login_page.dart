@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: h * 0.3,
               ),
               Center(child: CustomGradientButton(title: "Login", onPressed: (){
-              Get.toNamed(AppPages.myCartPage);
+              Get.toNamed(AppPages.dashboard);
               }))
             ],
           ),

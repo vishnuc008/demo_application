@@ -1,13 +1,14 @@
+import 'package:demo_application/Demo_App/domain/entities/order_modal.dart';
 import 'package:demo_application/Demo_App/presentation/routes/app_pages.dart';
 import 'package:demo_application/Demo_App/presentation/themes/app_assets.dart';
 import 'package:demo_application/Demo_App/presentation/themes/app_colors.dart';
 import 'package:demo_application/Demo_App/presentation/widgets/cart_widget.dart';
 import 'package:demo_application/Demo_App/presentation/widgets/custom_button.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
+
+import '../manager/controller/dashBoard_Controller.dart';
 
 class MyCartPage extends StatefulWidget {
   const MyCartPage({super.key});
@@ -15,6 +16,8 @@ class MyCartPage extends StatefulWidget {
   @override
   State<MyCartPage> createState() => _MyCartPageState();
 }
+
+final dashboardController = Get.find<DashboardController>();
 
 class _MyCartPageState extends State<MyCartPage> {
   @override
@@ -26,6 +29,7 @@ class _MyCartPageState extends State<MyCartPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
+            dashboardController.getproducts();
             Get.back();
           },
           icon: const Icon(Icons.arrow_back),
@@ -48,235 +52,134 @@ class _MyCartPageState extends State<MyCartPage> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: h * 0.28,
-        width: w,
-        decoration: BoxDecoration(color: Color.fromARGB(255, 248, 245, 245)),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(w * 0.02, h * 0.015, w * 0.02, h * 0.02),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text("Order Info",
-                      style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 16,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w700)),
-                  Text("")
-                ],
-              ),
-              SizedBox(
-                height: h * 0.005,
-              ),
-              DottedLine(
-                height: 3.0,
-                dotSpacing: 5,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                height: h * 0.01,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Sub Total",
-                      style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 14,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600)),
-                  Text("INR 1,50,000",
-                      style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 14,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600))
-                ],
-              ),
-              SizedBox(
-                height: h * 0.01,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Shipping Cost",
-                      style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 14,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600)),
-                  Text("INR 200",
-                      style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 14,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600))
-                ],
-              ),
-              SizedBox(
-                height: h * 0.01,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Total",
-                      style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 14,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600)),
-                  Text("INR 1,50,200",
-                      style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 14,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600))
-                ],
-              ),
-              SizedBox(
-                height: h * 0.03,
-              ),
-              CustomGradientButton(
-                  title: "Checkout",
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          height: h * 0.35,
-                          width: w,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(""),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: w * 0.02),
-                                    child: Container(
-                                      width: w * 0.1,
-                                      decoration: const BoxDecoration(
-                                          color: AppColors.grey,
-                                          shape: BoxShape.circle),
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.only(bottom: h * 0.00),
-                                        child: IconButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          icon: const Icon(Icons.close),
-                                          color: AppColors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                // height: h * 0.08,
-                                width: w * 0.19,
-                                child: Image(
-                                  image: AssetImage(AppAssets.mark),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(
-                                height: h * 0.025,
-                              ),
-                              Text("Your Order Was Successfully Placed",
-                                  style: TextStyle(
-                                      fontFamily: "Plus Jakarta Sans",
-                                      fontSize: 16,
-                                      color: AppColors.black,
-                                      fontWeight: FontWeight.w600)),
-                              Text(
-                                  "You’ll receive an email at  elisha2018@gmail.com once ",
-                                  style: TextStyle(
-                                      fontFamily: "Plus Jakarta Sans",
-                                      fontSize: 10,
-                                      color: AppColors.black,
-                                      fontWeight: FontWeight.w400)),
-                              Text("your order is confirmed",
-                                  style: TextStyle(
-                                      fontFamily: "Plus Jakarta Sans",
-                                      fontSize: 10,
-                                      color: AppColors.black,
-                                      fontWeight: FontWeight.w400)),
-                              SizedBox(
-                                height: h * 0.02,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: h * 0.05,
-                                        width: w * 0.09,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColors.black)),
-                                        child: Center(
-                                          child: const Text(
-                                            "Continue Shopping",
-                                            style: TextStyle(
-                                                fontFamily: "Plus Jakarta Sans",
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: w * 0.03,
-                                    ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: h * 0.05,
-                                        width: w * 0.9,
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    AppColors.black),
-                                            onPressed: () {
-                                              Get.toNamed(AppPages.orderPage);
-                                            },
-                                            child: Text(
-                                              "View Order",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontFamily: 'Plus Jakarta Sans',
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
-                                      ),
-                                    )
-                                  ],
-                                ),
+      bottomNavigationBar: Obx(
+        () => dashboardController.cartList.isEmpty
+            ? SizedBox.shrink()
+            : Container(
+                height: h * 0.29,
+                width: w,
+                decoration:
+                    BoxDecoration(color: Color.fromARGB(255, 248, 245, 245)),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      w * 0.02, h * 0.015, w * 0.02, h * 0.02),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text("Order Info",
+                              style: TextStyle(
+                                  fontFamily: "Plus Jakarta Sans",
+                                  fontSize: 16,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w700)),
+                          Text("")
+                        ],
+                      ),
+                      SizedBox(
+                        height: h * 0.005,
+                      ),
+                      DottedLine(
+                        height: 3.0,
+                        dotSpacing: 5,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(
+                        height: h * 0.01,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Sub Total",
+                              style: TextStyle(
+                                  fontFamily: "Plus Jakarta Sans",
+                                  fontSize: 14,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w600)),
+                          Obx(
+                            () => dashboardController.isTotalLoading.value
+                                ? SizedBox.shrink()
+                                : Text(
+                                    "INR ${dashboardController.total.toStringAsFixed(2)}",
+                                    style: TextStyle(
+                                        fontFamily: "Plus Jakarta Sans",
+                                        fontSize: 14,
+                                        color: AppColors.black,
+                                        fontWeight: FontWeight.w600)),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: h * 0.01,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Shipping Cost",
+                              style: TextStyle(
+                                  fontFamily: "Plus Jakarta Sans",
+                                  fontSize: 14,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w600)),
+                          Text("INR 200",
+                              style: TextStyle(
+                                  fontFamily: "Plus Jakarta Sans",
+                                  fontSize: 14,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w600))
+                        ],
+                      ),
+                      SizedBox(
+                        height: h * 0.01,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Total",
+                              style: TextStyle(
+                                  fontFamily: "Plus Jakarta Sans",
+                                  fontSize: 14,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w600)),
+                          Obx(
+                            () => dashboardController.isTotalLoading.value
+                                ? SizedBox.shrink()
+                                : Text(
+                                    "INR ${dashboardController.totalPay.toStringAsFixed(2)}",
+                                    style: TextStyle(
+                                        fontFamily: "Plus Jakarta Sans",
+                                        fontSize: 14,
+                                        color: AppColors.black,
+                                        fontWeight: FontWeight.w600)),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      Obx(
+                        () => dashboardController.addToOrderLoading.value
+                            ? Center(
+                                child: CircularProgressIndicator(),
                               )
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  }),
-              SizedBox(
-                height: h * 0.01,
+                            : CustomGradientButton(
+                                title: "Checkout",
+                                onPressed: () {
+                                  dashboardController
+                                      .addToOrder(dashboardController.cartList);
+                                 
+                                }),
+                      ),
+                      SizedBox(
+                        height: h * 0.01,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ],
-          ),
-        ),
       ),
     ));
   }
