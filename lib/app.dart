@@ -4,7 +4,6 @@ import 'package:demo_application/Demo_App/presentation/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-
 class MyAppp extends StatelessWidget {
   const MyAppp({super.key});
 
@@ -12,7 +11,7 @@ class MyAppp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPages.splashPage,
+      initialRoute: AppPages.dashboard,
       theme: AppTheme.lightTheme,
       getPages: AppRoutes.routes,
     );
