@@ -1,3 +1,4 @@
+
 import 'package:demo_application/Demo_App/presentation/manager/bindings/cart_controller_bindings.dart';
 import 'package:demo_application/Demo_App/presentation/manager/bindings/order_controller_bindings.dart';
 import 'package:demo_application/Demo_App/presentation/manager/bindings/profile_controller_bindings.dart';
@@ -7,6 +8,10 @@ import 'package:demo_application/Demo_App/presentation/pages/login_page.dart';
 import 'package:demo_application/Demo_App/presentation/pages/order_page.dart';
 import 'package:demo_application/Demo_App/presentation/pages/profile_page.dart';
 import 'package:demo_application/Demo_App/presentation/pages/signup_page.dart';
+
+import 'package:demo_application/Demo_App/presentation/manager/bindings/dashboard_bindings.dart';
+import 'package:demo_application/Demo_App/presentation/pages/dashboard/dashBoard.dart';
+
 import 'package:demo_application/Demo_App/presentation/pages/splash_page.dart';
 import 'package:demo_application/Demo_App/presentation/routes/app_pages.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -20,5 +25,6 @@ class AppRoutes{
     GetPage(name: AppPages.orderPage, page: ()=> const OrderPage(),binding: OrderControllerBindings()),
     GetPage(name: AppPages.profilePage, page: ()=> const ProfilePage(),binding: ProfileControllerBindings()),
     GetPage(name: AppPages.accountDetailsPage, page: ()=> const AccountDetailsPage()),
+    GetPage(name: AppPages.dashboard, page: ()=>  DashBoard(),binding: DashBoardBindings()),
   ];
 }

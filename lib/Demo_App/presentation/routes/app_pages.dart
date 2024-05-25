@@ -8,4 +8,8 @@ class AppPages{
   static const orderPage='/orderPage';
   static const profilePage='/profilePage';
   static const accountDetailsPage='/accountDetailspage';
+   static const dashboard = "/dashBoard";
 }
+
+ 
+

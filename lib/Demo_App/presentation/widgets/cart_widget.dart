@@ -1,3 +1,4 @@
+import 'package:demo_application/Demo_App/domain/entities/cart_dummy_modal.dart';
 import 'package:demo_application/Demo_App/domain/entities/cart_modal.dart';
 import 'package:demo_application/Demo_App/presentation/manager/bindings/cart_controller_bindings.dart';
 import 'package:demo_application/Demo_App/presentation/manager/controller/cart_controller.dart';
@@ -30,7 +31,7 @@ class _CartWidgetState extends State<CartWidget> {
 }
 class CartItem extends StatelessWidget {
   const CartItem({super.key, required this.modal});
-final CartModal modal;
+final CartDummyModal modal;
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
