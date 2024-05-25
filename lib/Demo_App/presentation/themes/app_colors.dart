@@ -4,12 +4,11 @@ class AppColors {
   static const lightred = Color(0xfff55a51);
   static const appThemecolor = Color(0xff6fbeea);
   static const primaryColor = Colors.white;
-  static const maincolor2 =   Colors.black;
-                  
-                 
+  static const maincolor2 = Colors.black;
+
 //Color(0xff4cc051);
   // static const maincolor3 = Color(0xFFD74177);
-  static const maincolor= Color(0xFFFFE98A);
+  static const maincolor = Color(0xFFFFE98A);
   static const backgroundcolor = Color(0xfff1f0f6);
   static const orange = Color(0xffff6565);
   static const grey = Color(0xffe4e4e4);
@@ -33,7 +32,7 @@ class AppColors {
   static const lightOrange = Color(0xfffad48b);
   static const midOrange = Color(0xfffea13a);
   static const darkOrange = Color(0xfff37736);
-  static const lightGreen = Colors.lightGreen;
+  static const lightGreen = Color(0xff44961d);
   static const lightBlue = Color(0xff63b8ff);
   static const peach = Color(0xffFF6D6D);
   static const transparent = Colors.transparent;
