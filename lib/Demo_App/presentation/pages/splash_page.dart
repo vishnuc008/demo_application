@@ -1,3 +1,4 @@
+import 'package:demo_application/Demo_App/presentation/routes/app_pages.dart';
 import 'package:demo_application/Demo_App/presentation/themes/app_assets.dart';
 import 'package:demo_application/Demo_App/presentation/themes/app_colors.dart';
 import 'package:demo_application/Demo_App/presentation/widgets/custom_button.dart';
@@ -5,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplashPage extends StatefulWidget {
@@ -29,15 +32,15 @@ class _SplashPageState extends State<SplashPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(""),
+                  const Text(""),
                   Container(
                     width: w * 0.1,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: AppColors.grey, shape: BoxShape.circle),
                     child: Center(
                       child: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.close),
+                        icon: const Icon(Icons.close),
                         color: AppColors.black,
                       ),
                     ),
@@ -51,7 +54,7 @@ class _SplashPageState extends State<SplashPage> {
             Container(
               height: h * 0.25,
               width: w * 0.5,
-              child: Image(
+              child: const Image(
                 image: AssetImage(AppAssets.splashwatch),
                 fit: BoxFit.cover,
               ),
@@ -62,7 +65,7 @@ class _SplashPageState extends State<SplashPage> {
             Container(
               height: h * 0.08,
               width: w * 0.5,
-              child: Image(
+              child: const Image(
                 image: AssetImage(AppAssets.demo),
                 fit: BoxFit.cover,
               ),
@@ -70,7 +73,7 @@ class _SplashPageState extends State<SplashPage> {
             SizedBox(
               height: h * 0.04,
             ),
-            Text(
+            const Text(
               "Get start your new shopping experience",
               style: TextStyle(
                   fontFamily: "Plus Jakarta Sans",
@@ -80,24 +83,38 @@ class _SplashPageState extends State<SplashPage> {
             SizedBox(
               height: h * 0.06,
             ),
-            CustomGradientButton(
-              onPressed: () {},
-              title: "Continue via Phone",
-              prefix: Icon(Icons.smartphone_outlined,color: AppColors.white,),
-              suffix: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.arrow_forward_rounded),
-                color: AppColors.white,
-              ),
+            SizedBox(
+              height: h * 0.068,
+              width: w * 0.9,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.black
+                ),
+                onPressed: (){},
+               child: Row(
+                children: [
+                Icon(Icons.smartphone_outlined), 
+                SizedBox(width: w*0.15,),             
+                Text("Continue via Phone",style: TextStyle(
+                  fontFamily: "Plus Jakarta Sans",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500),),
+                SizedBox(width: w*0.15,), 
+                IconButton(onPressed: (){
+                  Get.toNamed(AppPages.loginPage);
+                },
+                 icon: Icon(Icons.arrow_forward_rounded))
+                ],
+               )),
             ),
             Padding(
               padding:
-                  EdgeInsets.fromLTRB(w * 0.03, h * 0.03, w * 0.03, h * 0.07),
+                  EdgeInsets.fromLTRB(w * 0.05, h * 0.03, w * 0.05, h * 0.07),
               child: Row(
                 children: [
                   Expanded(
                     child: Container(
-                      height: h * 0.07,
+                      height: h * 0.068,
                       width: w * 0.09,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -109,7 +126,7 @@ class _SplashPageState extends State<SplashPage> {
                           Container(
                             height: h * 0.04,
                             width: w * 0.085,
-                            child: Image(
+                            child: const Image(
                               image: AssetImage(AppAssets.google),
                               fit: BoxFit.cover,
                             ),
@@ -117,7 +134,7 @@ class _SplashPageState extends State<SplashPage> {
                           SizedBox(
                             width: w * 0.02,
                           ),
-                          Text(
+                          const Text(
                             "Login with Google",
                             style: TextStyle(
                                 fontFamily: "Plus Jakarta Sans",
@@ -133,7 +150,7 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                   Expanded(
                     child: Container(
-                      height: h * 0.07,
+                      height: h * 0.068,
                       width: w * 0.4,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -145,7 +162,7 @@ class _SplashPageState extends State<SplashPage> {
                           Container(
                             height: h * 0.04,
                             width: w * 0.085,
-                            child: Image(
+                            child: const Image(
                               image: AssetImage(AppAssets.apple),
                               fit: BoxFit.cover,
                             ),
@@ -153,7 +170,7 @@ class _SplashPageState extends State<SplashPage> {
                           SizedBox(
                             width: w * 0.02,
                           ),
-                          Text(
+                          const Text(
                             "Login with Apple ID",
                             style: TextStyle(
                                 fontFamily: "Plus Jakarta Sans",
@@ -171,7 +188,8 @@ class _SplashPageState extends State<SplashPage> {
             Padding(
               padding:  EdgeInsets.only(left: w*0.02,right: w*0.02),
               child: RichText(
-                  text: TextSpan(children: [
+                  text: const TextSpan(children: [
+                    
                 TextSpan(
                     text: "By Continuing you are Accept to our",
                     style: TextStyle(
