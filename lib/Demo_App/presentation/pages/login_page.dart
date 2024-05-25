@@ -46,7 +46,9 @@ class _LoginPageState extends State<LoginPage> {
                         color: AppColors.grey, shape: BoxShape.circle),
                     child: Center(
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          
+                        },
                         icon: const Icon(Icons.close),
                         color: AppColors.black,
                       ),

@@ -5,4 +5,7 @@ class AppPages{
   static const loginPage='/loginPage';
   static const signUp='/signUp';
   static const myCartPage='/myCartPage';
+  static const orderPage='/orderPage';
+  static const profilePage='/profilePage';
+  static const accountDetailsPage='/accountDetailspage';
 }

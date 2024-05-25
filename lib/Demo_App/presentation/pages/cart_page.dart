@@ -1,3 +1,4 @@
+import 'package:demo_application/Demo_App/presentation/routes/app_pages.dart';
 import 'package:demo_application/Demo_App/presentation/themes/app_assets.dart';
 import 'package:demo_application/Demo_App/presentation/themes/app_colors.dart';
 import 'package:demo_application/Demo_App/presentation/widgets/cart_widget.dart';
@@ -153,11 +154,12 @@ class _MyCartPageState extends State<MyCartPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(""),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 8),
+                                    padding: EdgeInsets.only(right: w * 0.02),
                                     child: Container(
                                       width: w * 0.1,
                                       decoration: const BoxDecoration(
@@ -167,7 +169,9 @@ class _MyCartPageState extends State<MyCartPage> {
                                         padding:
                                             EdgeInsets.only(bottom: h * 0.00),
                                         child: IconButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Get.back();
+                                          },
                                           icon: const Icon(Icons.close),
                                           color: AppColors.black,
                                         ),
@@ -177,31 +181,45 @@ class _MyCartPageState extends State<MyCartPage> {
                                 ],
                               ),
                               Container(
-                               // height: h * 0.08,
+                                // height: h * 0.08,
                                 width: w * 0.19,
-                                child: Image(image: AssetImage(AppAssets.mark),fit: BoxFit.cover,),
+                                child: Image(
+                                  image: AssetImage(AppAssets.mark),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              SizedBox(height: h*0.03,),
-                              Text("Your Order Was Successfully Placed",style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 16,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600)),
+                              SizedBox(
+                                height: h * 0.025,
+                              ),
+                              Text("Your Order Was Successfully Placed",
+                                  style: TextStyle(
+                                      fontFamily: "Plus Jakarta Sans",
+                                      fontSize: 16,
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.w600)),
                               Text(
                                   "You’ll receive an email at  elisha2018@gmail.com once ",
                                   style: TextStyle(
-                          fontFamily: "Plus Jakarta Sans",
-                          fontSize: 10,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w400)),
-                          SizedBox(height: h*0.02,),
+                                      fontFamily: "Plus Jakarta Sans",
+                                      fontSize: 10,
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.w400)),
+                              Text("your order is confirmed",
+                                  style: TextStyle(
+                                      fontFamily: "Plus Jakarta Sans",
+                                      fontSize: 10,
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.w400)),
+                              SizedBox(
+                                height: h * 0.02,
+                              ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        height: h * 0.068,
+                                        height: h * 0.05,
                                         width: w * 0.09,
                                         decoration: BoxDecoration(
                                             borderRadius:
@@ -214,16 +232,36 @@ class _MyCartPageState extends State<MyCartPage> {
                                             style: TextStyle(
                                                 fontFamily: "Plus Jakarta Sans",
                                                 fontSize: 12,
-                                                fontWeight: FontWeight.w500),
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: w*0.03,),
+                                    SizedBox(
+                                      width: w * 0.03,
+                                    ),
                                     Expanded(
-                                        child: CustomGradientButton(
-                                            title: "View Order",
-                                            onPressed: () {}))
+                                      child: SizedBox(
+                                        height: h * 0.05,
+                                        width: w * 0.9,
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    AppColors.black),
+                                            onPressed: () {
+                                              Get.toNamed(AppPages.orderPage);
+                                            },
+                                            child: Text(
+                                              "View Order",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.0,
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            )),
+                                      ),
+                                    )
                                   ],
                                 ),
                               )
