@@ -1,3 +1,4 @@
 class AppRemoteRoutes{
-   static const baseUrl = "";
+  static const baseUrl = "https://fakestoreapi.com";
+  static const products = "/products";
 }
